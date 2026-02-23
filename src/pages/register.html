@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pendaftaran Akun</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../style/register.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <img src="../assets/images/logo.svg" class="logo" />
+    </header>
+
+    <main class="container">
+      <div class="card">
+        <h1 class="title-text">Pendaftaran Akun</h1>
+        <p class="subtitle">Yuk, daftarkan akunmu sekarang juga!</p>
+
+        <form action="./homepage.html" method="GET">
+          <div class="form-group">
+            <label>Nama Lengkap <span>*</span></label>
+            <input
+              type="text"
+              name="fullname"
+              placeholder="Nama lengkap"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>E-Mail <span>*</span></label>
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+
+          <div class="form-group">
+            <label>No. Hp <span>*</span></label>
+
+            <div class="phone-container">
+              <div class="phone-wrapper">
+                <div class="flag-box">
+                  <img src="../assets/icons/flag-id.svg" alt="Indonesia" />
+                </div>
+
+                <div class="country-code">
+                  <span>+62</span>
+                  <img
+                    src="../assets/icons/chevron-down.svg"
+                    alt="dropdown"
+                    class="dropdown-icon"
+                  />
+                </div>
+              </div>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="812xxxxxxxx"
+                required
+                class="phone-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Kata Sandi <span>*</span></label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                name="password"
+                placeholder="********"
+                required
+              />
+              <img class="eye-icon" src="../assets/icons/eye-off.svg" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Konfirmasi Kata Sandi <span>*</span></label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                name="confirm_password"
+                placeholder="********"
+                required
+              />
+              <img class="eye-icon" src="../assets/icons/eye-off.svg" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn primary">Daftar</button>
+          <a href="../index.html" class="btn secondary"> Masuk </a>
+
+          <div class="divider">atau</div>
+
+          <button type="button" class="btn google">
+            <img src="../assets/icons/google.svg" />
+            <span class="text-google">Daftar dengan Google</span>
+          </button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

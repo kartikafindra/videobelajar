@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masuk - videobelajar</title>
+    <link rel="stylesheet" href="style/index.css" />
+  
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="header">
+      <img src="./assets/images/logo.svg" alt="videobelajar" class="logo" />
+    </header>
+
+    <main class="container">
+      <div class="login-card">
+        <div class="text-title">Masuk ke Akun</div>
+        <p class="subtitle">Yuk, lanjutin belajarmu di videobelajar.</p>
+
+      
+        <form id="loginForm" action="./pages/homepage.html">
+          <div class="form-group">
+            <label>E-Mail <span>*</span></label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Masukkan email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Kata Sandi <span>*</span></label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                name="password"
+                placeholder="Masukkan kata sandi"
+                id="password"
+                required
+              />
+              <button type="button" class="toggle-password">
+                <img
+                  src="assets/icons/eye-off.svg"
+                  alt="toggle password"
+                  id="passwordIcon"
+                />
+              </button>
+            </div>
+          </div>
+
+          <div class="forgot">
+            <a href="#">Lupa Password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Masuk</button>
+
+          <button type="button" class="btn btn-secondary"  onclick="location.href='./pages/register.html'">Daftar</button>
+
+          <div class="divider">atau</div>
+
+          <button type="button" class="btn btn-google">
+            <img src="assets/icons/google.svg" alt="Google" />
+            <span class="text-google">Masuk dengan Google</span>
+          </button>
+        </form>
+      </div>
+    </main>
+    <script>
+      const passwordInput = document.getElementById("password");
+      const toggleBtn = document.querySelector(".toggle-password");
+      const icon = document.getElementById("passwordIcon");
+
+      toggleBtn.addEventListener("click", () => {
+        const isHidden = passwordInput.type === "password";
+
+        passwordInput.type = isHidden ? "text" : "password";
+        icon.src = isHidden
+          ? "assets/icons/eye.svg"
+          : "assets/icons/eye-off.svg";
+      });
+    </script>
+  </body>
+</html>

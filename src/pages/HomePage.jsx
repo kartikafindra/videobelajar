@@ -5,12 +5,14 @@ import CourseCard from '../components/CourseCard'
 import Newsletter from '../components/Newsletter'
 import NotesSection from '../components/NotesSection'
 import { courses } from '../data/courses'
+import { useAuth } from '../context/AuthContext'
 import '../style/homepage.css'
 
 const TABS = ['Semua Kelas', 'Pemasaran', 'Desain', 'Pengembangan Diri', 'Bisnis']
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('Semua Kelas')
+  const { isLoggedIn } = useAuth()
 
   return (
     <>
@@ -57,7 +59,7 @@ function HomePage() {
         </div>
       </section>
 
-      <NotesSection />
+      {isLoggedIn && <NotesSection />}
       <Newsletter />
       <Footer />
     </>

@@ -39,6 +39,7 @@ function NotesSection() {
   }
 
   const deleteNote = (id) => {
+    if (!window.confirm('Apaka yakin ingin dihapus notes nya?')) return
     setNotes(notes.filter((n) => n.id !== id))
   }
 

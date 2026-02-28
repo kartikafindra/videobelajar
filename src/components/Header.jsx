@@ -5,7 +5,7 @@ import logo from '../assets/images/logo.svg'
 import avatarProfile from '../assets/icons/avatar-profile.png'
 
 function Header({ showMenu = false }) {
-  const { logout } = useAuth()
+  const { logout, isLoggedIn } = useAuth()
   const navigate = useNavigate()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -49,26 +49,35 @@ function Header({ showMenu = false }) {
           <div className="header-right">
             <span className="menu">Kategori</span>
 
-            {/* Desktop avatar dropdown */}
-            <div className="avatar-wrapper" ref={dropdownRef}>
-              <img
-                src={avatarProfile}
-                className="avatar"
-                alt="Profile"
-                onClick={() => setDropdownOpen((v) => !v)}
-              />
-              {dropdownOpen && (
-                <div className="dropdown-menu">{menuItems}</div>
-              )}
-            </div>
+            {isLoggedIn ? (
+              <>
+                {/* Desktop avatar dropdown */}
+                <div className="avatar-wrapper" ref={dropdownRef}>
+                  <img
+                    src={avatarProfile}
+                    className="avatar"
+                    alt="Profile"
+                    onClick={() => setDropdownOpen((v) => !v)}
+                  />
+                  {dropdownOpen && (
+                    <div className="dropdown-menu">{menuItems}</div>
+                  )}
+                </div>
 
-            {/* Mobile hamburger */}
-            <div
-              className="hamburger"
-              onClick={() => setMobileMenuOpen((v) => !v)}
-            >
-              {mobileMenuOpen ? '✕' : '☰'}
-            </div>
+                {/* Mobile hamburger */}
+                <div
+                  className="hamburger"
+                  onClick={() => setMobileMenuOpen((v) => !v)}
+                >
+                  {mobileMenuOpen ? '✕' : '☰'}
+                </div>
+              </>
+            ) : (
+              <div className="header-auth-buttons">
+                <Link to="/login" className="btn-header-login">Login</Link>
+                <Link to="/register" className="btn-header-register">Register</Link>
+              </div>
+            )}
           </div>
         )}
       </header>

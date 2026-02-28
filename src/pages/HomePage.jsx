@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CourseCard from '../components/CourseCard'
 import Newsletter from '../components/Newsletter'
+import NotesSection from '../components/NotesSection'
 import { courses } from '../data/courses'
 import '../style/homepage.css'
 
@@ -56,6 +57,7 @@ function HomePage() {
         </div>
       </section>
 
+      <NotesSection />
       <Newsletter />
       <Footer />
     </>

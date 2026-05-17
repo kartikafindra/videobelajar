@@ -50,10 +50,10 @@ function Footer() {
       <div className="footer-bottom">
         <p>©2023 Gerobak Sayur All Rights Reserved.</p>
         <div className="socials">
-          <img src={linkedin} alt="LinkedIn" />
-          <img src={facebook} alt="Facebook" />
-          <img src={ig} alt="Instagram" />
-          <img src={twitter} alt="Twitter" />
+          <span><img src={linkedin} alt="LinkedIn" /></span>
+          <span><img src={facebook} alt="Facebook" /></span>
+          <span><img src={ig} alt="Instagram" /></span>
+          <span><img src={twitter} alt="Twitter" /></span>
         </div>
       </div>
     </footer>

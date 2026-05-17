@@ -1,0 +1,72 @@
+[
+  {
+    "id": "1",
+    "name": "Budi Santoso",
+    "email": "budi@example.com",
+    "phone": "081234567890",
+    "avatar": "https://i.pravatar.cc/150?img=1",
+    "password": "budi1234",
+    "joined": "2025-01-12",
+    "courses": 3
+  },
+  {
+    "id": "2",
+    "name": "Siti Rahayu",
+    "email": "siti@example.com",
+    "phone": "082345678901",
+    "avatar": "https://i.pravatar.cc/150?img=2",
+    "password": "siti1234",
+    "joined": "2025-02-20",
+    "courses": 5
+  },
+  {
+    "id": "3",
+    "name": "Ahmad Fauzi",
+    "email": "ahmad@example.com",
+    "phone": "083456789012",
+    "avatar": "https://i.pravatar.cc/150?img=3",
+    "password": "ahmad1234",
+    "joined": "2025-03-03",
+    "courses": 1
+  },
+  {
+    "id": "4",
+    "name": "Dewi Lestari",
+    "email": "dewi@example.com",
+    "phone": "084567890123",
+    "avatar": "https://i.pravatar.cc/150?img=4",
+    "password": "dewi1234",
+    "joined": "2025-03-15",
+    "courses": 7
+  },
+  {
+    "id": "5",
+    "name": "Rizki Pratama",
+    "email": "rizki@example.com",
+    "phone": "085678901234",
+    "avatar": "https://i.pravatar.cc/150?img=5",
+    "password": "rizki1234",
+    "joined": "2025-04-02",
+    "courses": 2
+  },
+  {
+    "id": "6",
+    "name": "Rina Kusuma",
+    "email": "rina@example.com",
+    "phone": "086789012345",
+    "avatar": "https://i.pravatar.cc/150?img=6",
+    "password": "rina1234",
+    "joined": "2025-04-10",
+    "courses": 4
+  },
+  {
+    "id": "7",
+    "name": "Dimas Arya",
+    "email": "dimas@example.com",
+    "phone": "087890123456",
+    "avatar": "https://i.pravatar.cc/150?img=7",
+    "password": "dimas1234",
+    "joined": "2025-04-18",
+    "courses": 0
+  }
+]

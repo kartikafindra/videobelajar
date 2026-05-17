@@ -5,7 +5,7 @@ import logo from '../assets/images/logo.svg'
 import avatarProfile from '../assets/icons/avatar-profile.png'
 
 function Header({ showMenu = false }) {
-  const { logout, isLoggedIn } = useAuth()
+  const { logout, isLoggedIn, currentUser } = useAuth()
   const navigate = useNavigate()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -32,6 +32,10 @@ function Header({ showMenu = false }) {
       <div className="dropdown-item">Kelas Saya</div>
       <div className="dropdown-item">Pesanan Saya</div>
       <div className="dropdown-divider" />
+      <div className="dropdown-item" onClick={() => { setDropdownOpen(false); setMobileMenuOpen(false); navigate('/admin') }}>
+        Admin
+      </div>
+      <div className="dropdown-divider" />
       <div className="dropdown-item dropdown-logout" onClick={handleLogout}>
         Logout
       </div>
@@ -47,6 +51,14 @@ function Header({ showMenu = false }) {
 
         {showMenu && (
           <div className="header-right">
+            {isLoggedIn && currentUser && (
+              <div className="header-welcome">
+                <span className="header-welcome-text">
+                  Welcome, <strong>{currentUser.name}</strong>! Selamat belajar
+                </span>
+              </div>
+            )}
+
             <span className="menu">Kategori</span>
 
             {isLoggedIn ? (

@@ -6,5 +6,10 @@
   "deploy": {
     "startCommand": "node server/index.js",
     "restartPolicyType": "ON_FAILURE"
+  },
+  "environments": {
+    "production": {
+      "watchPatterns": ["server/**"]
+    }
   }
 }

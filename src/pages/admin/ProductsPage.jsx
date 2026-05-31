@@ -58,7 +58,8 @@ export default function ProductsPage() {
       const res = await axiosInstance.post('/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
-      const url = `http://localhost:3000${res.data.data.url}`
+      // const url = `http://localhost:3000${res.data.data.url}`
+      const url = `${import.meta.env.VITE_API_BASE_URL}${res.data.data.url}`
       setForm((prev) => ({ ...prev, urlFotoProduk: url }))
       setPhotoPreview(url)
     } catch {

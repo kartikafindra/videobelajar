@@ -14,24 +14,9 @@ const TABS = ['Semua Kelas', 'Pemasaran', 'Desain', 'Pemrograman', 'Data', 'Keua
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('Semua Kelas')
-  const [apiTestResult, setApiTestResult] = useState('')
-  const [apiTestLoading, setApiTestLoading] = useState(false)
   const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  async function handleTestApi() {
-    setApiTestLoading(true)
-    setApiTestResult('')
-    try {
-      const res = await fetch('https://stg-ai-analyzer.rmb-lab.jp/api/l?id=wcae782e7-5ad8-4580-bb05-29e5c575e1e3')
-      setApiTestResult(`✓ Success — Status: ${res.status} ${res.statusText}`)
-    } catch (err) {
-      setApiTestResult(`✗ Failed — ${err.message}`)
-    } finally {
-      setApiTestLoading(false)
-    }
-  }
 
 
   const courses = useSelector((state) => state.courses.items)
@@ -105,38 +90,6 @@ function HomePage() {
 
       {isLoggedIn && <NotesSection />}
 
-      <div style={{ padding: '0 120px 40px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 12 }}>
-        <button
-          onClick={handleTestApi}
-          disabled={apiTestLoading}
-          style={{
-            background: '#3ecf4c',
-            color: '#fff',
-            border: 'none',
-            borderRadius: 8,
-            padding: '10px 24px',
-            fontSize: 14,
-            fontWeight: 600,
-            cursor: apiTestLoading ? 'not-allowed' : 'pointer',
-            opacity: apiTestLoading ? 0.7 : 1,
-          }}
-        >
-          {apiTestLoading ? 'Testing...' : 'Test Call API'}
-        </button>
-        {apiTestResult && (
-          <p style={{
-            fontSize: 13,
-            color: apiTestResult.startsWith('✓') ? '#15803d' : '#e53e3e',
-            background: apiTestResult.startsWith('✓') ? '#dcfce7' : '#ffe4e4',
-            border: `1px solid ${apiTestResult.startsWith('✓') ? '#86efac' : '#fca5a5'}`,
-            borderRadius: 8,
-            padding: '8px 14px',
-            margin: 0,
-          }}>
-            {apiTestResult}
-          </p>
-        )}
-      </div>
 
       <Newsletter />
       <Footer />

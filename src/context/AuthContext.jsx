@@ -14,13 +14,15 @@ export function AuthProvider({ children }) {
 
   const isLoggedIn = currentUser !== null
 
-  const login = (user) => {
+  const login = (user, token) => {
     localStorage.setItem('currentUser', JSON.stringify(user))
+    if (token) localStorage.setItem('authToken', token)
     setCurrentUser(user)
   }
 
   const logout = () => {
     localStorage.removeItem('currentUser')
+    localStorage.removeItem('authToken')
     setCurrentUser(null)
   }
 

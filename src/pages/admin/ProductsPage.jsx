@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   fetchCourses,
@@ -6,6 +6,7 @@ import {
   editCourse,
   removeCourse,
 } from '../../store/redux/slices/coursesSlice'
+import axiosInstance from '../../services/api/axiosInstance'
 
 const INITIAL_FORM = {
   judulProduk: '',
@@ -21,7 +22,7 @@ const INITIAL_FORM = {
 export default function ProductsPage() {
   const dispatch = useDispatch()
 
-  // ── Read from Redux state ──────────────────────────────────
+  //Read from Redux state 
   const products = useSelector((state) => state.courses.items)
   const loading = useSelector((state) => state.courses.loading)
   const error = useSelector((state) => state.courses.error)
@@ -31,8 +32,11 @@ export default function ProductsPage() {
   const [submitting, setSubmitting] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
   const [editingId, setEditingId] = useState(null)
+  const [uploadingPhoto, setUploadingPhoto] = useState(false)
+  const [photoPreview, setPhotoPreview] = useState('')
+  const fileInputRef = useRef(null)
 
-  // ── GET: fetch all products from API → store in Redux ──────
+  // GET: fetch all products from API → store in Redux
   useEffect(() => {
     dispatch(fetchCourses())
   }, [dispatch])
@@ -41,6 +45,27 @@ export default function ProductsPage() {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
     if (formErrors[name]) setFormErrors((prev) => ({ ...prev, [name]: '' }))
+  }
+
+  async function handlePhotoUpload(e) {
+    const file = e.target.files[0]
+    if (!file) return
+
+    setUploadingPhoto(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      const res = await axiosInstance.post('/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      const url = `http://localhost:3000${res.data.data.url}`
+      setForm((prev) => ({ ...prev, urlFotoProduk: url }))
+      setPhotoPreview(url)
+    } catch {
+      alert('Gagal upload foto. Coba lagi.')
+    } finally {
+      setUploadingPhoto(false)
+    }
   }
 
   function validate() {
@@ -61,18 +86,20 @@ export default function ProductsPage() {
       const payload = { ...form, harga: Number(form.harga) }
 
       if (editingId) {
-        // ── EDIT: update via API → update Redux state ──────
+        // EDIT: update via API → update Redux state
         await dispatch(editCourse({ id: editingId, payload })).unwrap()
         setSuccessMsg('Produk berhasil diperbarui!')
         setEditingId(null)
       } else {
-        // ── ADD: post to API → prepend to Redux state ──────
+        // ADD: post to API → prepend to Redux state 
         await dispatch(addCourse(payload)).unwrap()
         setSuccessMsg('Produk berhasil ditambahkan!')
       }
 
       setForm(INITIAL_FORM)
       setFormErrors({})
+      setPhotoPreview('')
+      if (fileInputRef.current) fileInputRef.current.value = ''
       setTimeout(() => setSuccessMsg(''), 3000)
     } catch {
       // error already in Redux state via rejected case
@@ -93,6 +120,7 @@ export default function ProductsPage() {
       urlFotoMentor: product.urlFotoMentor || '',
       urlFotoProduk: product.urlFotoProduk || '',
     })
+    setPhotoPreview(product.urlFotoProduk || '')
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -100,6 +128,8 @@ export default function ProductsPage() {
     setEditingId(null)
     setForm(INITIAL_FORM)
     setFormErrors({})
+    setPhotoPreview('')
+    if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
   async function handleDelete(id) {
@@ -197,12 +227,30 @@ export default function ProductsPage() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="urlFotoProduk">URL Foto Produk</label>
+            <label htmlFor="fotoProduk">Foto Produk</label>
+            {/* Upload file  */}
             <input
+              id="fotoProduk"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              ref={fileInputRef}
+              onChange={handlePhotoUpload}
+              disabled={uploadingPhoto}
+            />
+            {uploadingPhoto && <p style={{ fontSize: 13, color: '#888', marginTop: 4 }}>Mengupload foto...</p>}
+            {photoPreview && (
+              <img
+                src={photoPreview}
+                alt="preview"
+                style={{ marginTop: 8, width: 120, height: 80, objectFit: 'cover', borderRadius: 6, border: '1px solid #e2e8f0' }}
+              />
+            )}
+            {/* URL Foto Produk (input manual) */}
+            {/* <input
               id="urlFotoProduk" name="urlFotoProduk" type="url"
               placeholder="https://example.com/cover-kelas.jpg"
               value={form.urlFotoProduk} onChange={handleChange}
-            />
+            /> */}
           </div>
 
           <div className="form-actions" style={{ display: 'flex', gap: 10 }}>

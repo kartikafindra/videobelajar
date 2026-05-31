@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate, Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { getUsers } from '../services/api/userService'
+import axiosInstance from '../services/api/axiosInstance'
 import Header from '../components/Header'
 import eyeOff from '../assets/icons/eye-off.svg'
 import eye from '../assets/icons/eye.svg'
@@ -24,18 +24,16 @@ function LoginPage() {
     setError('')
     setLoading(true)
     try {
-      const users = await getUsers()
-      const user = users.find(
-        (u) => u.email === email.trim() && u.password === password
-      )
-      if (!user) {
-        setError('Email atau kata sandi salah.')
-        return
-      }
-      login(user)
+      const res = await axiosInstance.post('/login', {
+        email: email.trim(),
+        password,
+      })
+      const { data: user, token } = res.data
+      login(user, token)
       navigate('/')
-    } catch {
-      setError('Gagal menghubungi server. Coba lagi.')
+    } catch (err) {
+      const msg = err.response?.data?.message
+      setError(msg || 'Gagal menghubungi server. Coba lagi.')
     } finally {
       setLoading(false)
     }
